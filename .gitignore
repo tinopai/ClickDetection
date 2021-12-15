@@ -1,4 +1,4 @@
 server/node_modules/
-clicks/human/*
-clicks/simple/*
-clicks/complex/*
+clicks/human/*.txt
+clicks/simple/*.txt
+clicks/complex/*.txt
