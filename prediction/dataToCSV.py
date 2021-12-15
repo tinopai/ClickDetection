@@ -4,9 +4,9 @@ import json
 
 clicks = []
 
-for clickType in os.listdir('clicks/'):
-    for file in os.listdir('clicks/' + clickType):
-        with open('clicks/' + clickType + '/' + file, 'r') as file:
+for clickType in os.listdir('../clicks/'):
+    for file in os.listdir('../clicks/' + clickType):
+        with open('../clicks/' + clickType + '/' + file, 'r') as file:
             data = ''
             for click in json.loads(file.read()):
                 data += str(click) + '|'

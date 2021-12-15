@@ -1,3 +1,4 @@
-node_modules/
-clicks/*
-!clicks/README.md
+server/node_modules/
+clicks/human/*
+clicks/simple/*
+clicks/complex/*
