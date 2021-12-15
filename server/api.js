@@ -9,18 +9,19 @@ app.post('/saveClicks', express.json(), (req, res)=>{
         const total = req.body?.total
         const type = req.body?.type
 
-        if (!allowedTypes.includes(type) || !(total.match(/^[0-9]{0,10}$/)))
+        if (!allowedTypes.includes(type) || !(String(total).match(/^[0-9]{0,10}$/)))
             return res.status(500).json({
                 success: false,
                 message: 'Please don\'t troll, you wont achieve anything'
             })
         
 
-        fs.writeFileSync(`clicks/${type}/${total}_${Date.now()}.txt`, `${JSON.stringify(clicks)}`);
+        fs.writeFileSync(`../clicks/${type}/${total}_${Date.now()}.txt`, `${JSON.stringify(clicks)}`);
         res.status(200).json({
             success: true
         })
     } catch(ex) {
+        console.log(ex)
         res.status(500).json({
             success: false,
             message: 'Could not save',
