@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>CPS Scan</title>
+    </head>
+
+    <div style="display:flex;justify-content: center;vertical-align:middle;height:100vh;width:100vw">
+        <div>
+            <h1>CPS: <span id="cps">-</span></h1>
+            <br>
+            <button id="btn" onclick="click()" style="height:100px;width:100px;">
+                click here
+            </button>
+        </div>
+    </div>
+    
+
+    <script>
+        let cps = 0, clickCount = 0, clicks = [];
+        document.getElementById('btn').onclick = function() {
+            if (clickCount == 0) {
+                let startTime = Date.now();
+                const interval2 = setInterval(()=>{
+                    clicks.push(clickCount)
+                }, 100);
+                setTimeout(()=>{
+                    clearInterval(interval2);
+                    document.getElementById('btn').disabled = true;
+                    setTimeout(()=>document.getElementById('btn').disabled = true, 500);
+
+                    fetch('localhost:3000/saveClicks', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            clicks: clicks,
+                            total: clicks.length
+                        })
+                    })
+                    console.log(JSON.stringify(clicks))
+                }, 10 * 1000);
+            }
+            document.getElementById('cps').innerHTML = clickCount - (clicks[clicks.length-1] || 0);
+            clickCount++;
+        }
+    </script>
+</html>
