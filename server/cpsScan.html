@@ -42,7 +42,7 @@
                     document.getElementById('btn').disabled = true;
                     setTimeout(()=>document.getElementById('btn').disabled = true, 500);
 
-                    fetch('http://localhost:3000/saveClicks', {
+                    fetch('http://localhost:9171/saveClicks', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
