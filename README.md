@@ -1,6 +1,6 @@
 # MLAutoClicker
 
-Detects AutoClcikers and classifies them whether it includes a complex randomization algorithm or not
+Detects AutoClickers and classifies them whether it includes a complex randomization algorithm or not
 
 ## Purpose
 
