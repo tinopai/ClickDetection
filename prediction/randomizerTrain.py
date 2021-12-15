@@ -2,12 +2,6 @@
 # Author: Valentino Berta
 # Date: 12/11/2021
 
-# Explanation:
-#   Linear regression is an algorithm which returns values 0 or 1
-#   i'm going to use the current time as an input
-#   being the current timestamp right now the start each time the autoclicker is turned on
-#   and the algorithm is going to return if it should click or not depending on the time
-
 # ----------
 
 import numpy as np
