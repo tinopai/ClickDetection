@@ -3,44 +3,59 @@
         <title>CPS Scan</title>
     </head>
 
-    <div style="display:flex;justify-content: center;vertical-align:middle;height:100vh;width:100vw">
+    <div style="display:flex;justify-content: center;vertical-align:middle;width:100vw">
         <div>
-            <h1>CPS: <span id="cps">-</span></h1>
-            <br>
-            <button id="btn" onclick="click()" style="height:100px;width:100px;">
-                click here
-            </button>
+            <div>
+                <h1><span id="secs">10</span> seconds left</h1>
+                <h1>type: <span id="type">human</span></h1>
+                <br>
+                <button id="btn" onclick="click()" style="height:100px;width:100px;">
+                    click here
+                </button>
+            </div>
+            <div>
+                <button onclick='changeType("human")'>human</button>
+                <button onclick='changeType("complex")'>complex</button>
+                <button onclick='changeType("simple")'>simple</button>
+            </div>
         </div>
     </div>
     
 
     <script>
-        let cps = 0, clickCount = 0, clicks = [];
+        let cps = 0, clickCount = 0, clicks = [], type = 'human', left=100;
+        function changeType(to) {
+            type = to;
+            document.getElementById('type').innerHTML = to;
+        }
         document.getElementById('btn').onclick = function() {
             if (clickCount == 0) {
                 let startTime = Date.now();
                 const interval2 = setInterval(()=>{
                     clicks.push(clickCount)
+
+                    left--;
+                    document.getElementById('secs').innerHTML = Math.floor(left/10);
                 }, 100);
                 setTimeout(()=>{
                     clearInterval(interval2);
                     document.getElementById('btn').disabled = true;
                     setTimeout(()=>document.getElementById('btn').disabled = true, 500);
 
-                    fetch('localhost:3000/saveClicks', {
+                    fetch('http://localhost:3000/saveClicks', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
                             clicks: clicks,
-                            total: clicks.length
+                            total: clicks.length,
+                            type,
                         })
                     })
                     console.log(JSON.stringify(clicks))
                 }, 10 * 1000);
             }
-            document.getElementById('cps').innerHTML = clickCount - (clicks[clicks.length-1] || 0);
             clickCount++;
         }
     </script>
